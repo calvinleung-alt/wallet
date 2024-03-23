@@ -1,65 +1,57 @@
-Coding Test
 
+# Wallet
 
+## Code Execution
+```
+go run cmd/main.go
+```
 
-What we like you to do
+## Description
+These repository mainly consists of client exposed package named `wallet`.
 
-write backend code for a Wallet Apps that behaves as follows:
+And all the apis are lived in `api_op` prefixed files under `wallet` package.
 
-User can deposit money into her wallet
+For the server side simulation, it consists of several simplified commands lived in `internal/cmd` package.
 
-User can withdraw money from her wallet
+Where data handling is located at `internal/data` and mocked behaviours of repository and transaction is applied.
 
-User can send money to another user
+`types` package contains all shared types between public api and internal usage.
 
-User can check her wallet balance
+## API
 
-others:
+### Types
 
-the Wallet App should keep track of all the users and wallets it contains
+```Client```
 
-No UI interface is required, solution should be provided as reusable library code
+#### Methods
 
-submit your solution as a Zip file 2. How we mark your solution
+```
+func (c *Client) Deposit(*types.DepositInput) (*types.DepositOutput, error)
 
-Be written in Golang or your preferred language
+func (c *Client) Withdraw(*types.WithdrawInput) (*types.WithdrawOutput, error)
 
-Have quality tests
+func (c *Client) Send(*types.SendInput) (*types.SendOutput, error)
 
-Include a readme
+func (c *Client) CheckBalance(*types.CheckBalanceInput) (*types.CheckBalanceOutput, error)
+```
 
-explaining any decisions you made
+### Functional Requirement
 
-how to setup and run your code
+User can be able to apply the features like Deposit, Withdraw, Send, CheckBalance
 
-highlight how should reviewer view your code
+### Non-functional Requirement
 
-areas to be improved
+In order to prevent double spending or undesired behaviour due to race condition and concurrency,
 
-how long you spent on the test
+Transactional process will be applied and to ensure data operation linearizability.
 
-which features you chose not to do in the submission
+### Development Time
+Time spent on this test is around 5 hours.
 
-etc.
+### Features not implemented
 
-How does it satisfy functional and non-functional requirements
+Exact implementation of database connection and transactional behaviour is delayed for the sake of simplicity.
 
-Does it follow engineering best practices ?
+Also, it is supposed that a backend server should developed and up for serving the endpoints since the deliverable is mainly about the
 
-The OO design of your classes and methods
-
-The simplicity of your solution
-
-3. Other advices:
-
-Consider planning how you will solve the problem up front
-
-Keep it simple, Less is more
-
-Let us know if you have any questions before you start
-
-We expect you to spend between 2 to 3 hours in total, including planning and documentation
-
-We would like to keep your details confidential and private to avoid any unconscious bias. Do not put your name, contact, github url etc. in the code
-
-Enjoy the test !!
+client package for the reusable library.
